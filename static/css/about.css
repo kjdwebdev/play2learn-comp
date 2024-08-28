@@ -1,0 +1,81 @@
+/* COLOR PALLET
+
+dkpurple:   #5603AD
+mdpurple:   #8367C7
+grey:       #9BA8C7
+mdgreen:    #B3E9C7
+ltgreen:    #C2F8CB
+
+*/
+body,
+#page-header,
+#page-info,
+#employees
+{
+    background-color: #C2F8CB;
+    color: #5603AD;
+}
+.card,
+.row
+{
+    /*border-color: #5603AD;*/
+    border: 2px solid #5603AD;
+    border-radius: 5px;
+}
+.card,
+.card-body,
+.row
+{
+    background-color: #C2F8CB;
+    color: #5603AD;
+}
+#page-info header{
+    font-size: xx-large;
+}
+/*
+body{
+    background-color: #C2F8CB99;
+    color: #5603AD;
+    width: 100%;
+}
+
+#page-info{
+    
+    background-color: #C2F8CB99;
+    color: #5603AD;
+    width: 100%;
+}
+
+#page-info header{
+    margin: .5rem auto;
+    text-align: center;
+    font-size: xx-large;
+    width: 80%;
+}
+
+#page-info div{
+    border: 2px solid #5603AD;
+    
+    margin: .5rem auto; 
+    padding: .5rem;
+    width: 70%;
+}
+
+#page-info div h3{
+    font-size: x-large;
+    
+}
+
+#page-info div img{
+    float: right;
+    margin: 0.5rem;
+}
+*/
+/* apply clear fix so images don't flow out of boundary */
+/*
+#page-info div::after{
+    content: "";
+    clear: both;
+    display: block;
+}
+*/

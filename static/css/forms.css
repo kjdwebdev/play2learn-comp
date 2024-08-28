@@ -1,0 +1,49 @@
+/* COLOR PALLET
+
+dkpurple:   #5603AD
+mdpurple:   #8367C7
+grey:       #9BA8C7
+mdgreen:    #B3E9C7
+ltgreen:    #C2F8CB
+
+*/
+
+#page-info
+{
+    padding-top: 1rem;
+    background-color: #9BA8C799;
+    color: #5603AD;
+    margin: 0 auto;
+    width: 100%;
+}
+#page-info header
+{
+    margin: 0 auto;
+    text-align: center;
+    font-size: xx-large;
+}
+.forms .none
+{
+    display: none;
+}
+.checkbox-content
+{
+    display: grid; 
+    align-content: center;
+    grid-template-columns: auto auto;
+    text-align: left;
+    margin: 5px;
+}
+#login,
+#register,
+.btn-send
+{
+    background-color: #B3E9C7;
+    color: #5603AD;
+    font-size: x-large;
+    margin-top: 10px;
+    padding: 5px;
+    width: 100%;
+    border: 2px solid #5603AD;
+    border-radius: 5px;
+}
