@@ -13,11 +13,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='customuser',
-            name='avatar',
-            field=models.ImageField(blank=True, help_text='Image must be 200px by 200px.', upload_to='avatars/', validators=[users.models.validate_avatar]),
-        ),
-        migrations.AddField(
-            model_name='customuser',
             name='dob',
             field=models.DateField(blank=True, null=True, verbose_name='Date of Birth'),
         ),
