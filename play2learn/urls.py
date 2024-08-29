@@ -17,11 +17,19 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
+from games.views import AnagramHuntView, MathFactsView
 from pages.views import HomePageView
 
 urlpatterns = [
+    # Admin
+    path('admin/doc', include('django.contrib.admindocs.urls')),
     path("admin/", admin.site.urls),
+
+    # User Management
+    path('account/', include('allauth.urls')),
+
+    # Local Apps
     path('', include("pages.urls")),
-    path('games/', include("games.urls"))
+    path('', include("games.urls"))
 ]
 
