@@ -5,25 +5,26 @@ GAMES = (
     (1, 'Anagram Hunt'),
     (2, 'Math Facts'),
 )
-
+STARS = (
+    (1, 'Exceptional'),
+    (2, 'Good'),
+    (3, 'Satisfactory'),
+    (4, 'Unsatisfactory'),
+    (5, 'Unacceptable')
+)
+    
 class Review(models.Model):
-    review = models.TextField(max_length=200)
+    
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
         related_name='gamereview'
     )
-    game = models.CharField(max_length=20, choices=GAMES)
-    stars = models.SmallIntegerField()
+    game = models.SmallIntegerField(choices=GAMES)
+    stars = models.SmallIntegerField(choices=STARS)
+    review = models.TextField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     featured = models.BooleanField()
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['user', 'game'], name='one_vote_per_user_per_game'
-            )
-        ]
 
     def __str__(self):
         return self.review
