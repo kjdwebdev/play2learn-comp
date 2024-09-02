@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     # local apps
+    'contact.apps.ContactConfig',
     "games.apps.GamesConfig",
     "pages.apps.PagesConfig",
     "reviews.apps.ReviewsConfig",
