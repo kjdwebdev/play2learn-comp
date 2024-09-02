@@ -30,8 +30,9 @@ urlpatterns = [
     path('account/', include('allauth.urls')),
 
     # Local Apps
-    path('', include("pages.urls")),
+    path('', include("games.urls")),
+    path('pages/', include("pages.urls")),
     path('reviews/', include('reviews.urls')),
-    path('', include("games.urls"))
+    
 ]
 
