@@ -1,13 +1,17 @@
 {% extends "_base_vue.html" %}
+{% load crispy_forms_tags %}
 
-{% block title %}Job Application: Joke Writer{% endblock %}
+{% block title %}P2L Contact{% endblock %}
 {% block main %}
   <h2 class="text-center">Contact Us</h2>
-  <div class="card border-primary m-auto mb-3 p-3" style="max-width: 40rem">
+  <div class="card m-auto mb-3 p-3" style="max-width: 40rem">
       <form method="post">
         {% csrf_token %}
+        {{ form|crispy }}
+        <!--
         {{ form.as_p }}
-        <button class="btn btn-success float-end">Submit</button>
+        -->
+        <button class="btn btn-success float-end" id="submit-btn">Submit</button>
       </form>
   </div>
 {% endblock %}

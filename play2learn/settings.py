@@ -40,18 +40,19 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     # Third-party
-    'crispy_forms',
-    'crispy_bootstrap5',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    "crispy_forms",
+    "crispy_bootstrap5",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
 
     # local apps
-    'contact.apps.ContactConfig',
+    "common.apps.CommonConfig",
+    "contact.apps.ContactConfig",
     "games.apps.GamesConfig",
     "pages.apps.PagesConfig",
     "reviews.apps.ReviewsConfig",
-    'users.apps.UsersConfig',
+    "users.apps.UsersConfig",
 ]
 
 SITE_ID = 1
@@ -180,6 +181,9 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

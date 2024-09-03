@@ -5,5 +5,6 @@ class ContactForm(forms.Form):
     last_name = forms.CharField()
     email = forms.EmailField()
     subject = forms.CharField()
-    message = forms.Textarea()
-    
+    message = forms.CharField(
+        widget=forms.Textarea(attrs={'cols': '100', 'rows': '5'})
+)
