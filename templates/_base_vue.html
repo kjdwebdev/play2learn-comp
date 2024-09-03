@@ -74,29 +74,34 @@
               <a class="nav-link" href="{% url 'account_signup' %}">Sign up</a>
             </li>
           {% else %}
-          <!--If the user is logged in display their me/account menu-->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
-              role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-              Me
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">
-                My Account
+            <!--If the user is logged in display their me/account menu-->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
+                role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                Me
               </a>
-              <a class="dropdown-item"
-                href="#">
-                My Django Jokes
-              </a>
-              <div class="dropdown-divider"></div>
-              <form method="post" action="{% url 'account_logout' %}">
-                {% csrf_token %}
-                <button class="btn dropdown-item">Log out</button>
-              </form>
-            </div>
-          </li>
-        {% endif %}
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'my-account' %}">
+                  My Account
+                </a>
+                <a class="dropdown-item"
+                  href="#">
+                  My Django Jokes
+                </a>
+                <div class="dropdown-divider"></div>
+                <form method="post" action="{% url 'account_logout' %}">
+                  {% csrf_token %}
+                  <button class="btn dropdown-item">Log out</button>
+                </form>
+              </div>
+            </li>
+              {% if user.is_staff %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/">Admin</a>
+                </li>
+              {% endif %}
+          {% endif %}
         </ul>
       </div> <!--end hamburger menu-->
     </nav>
