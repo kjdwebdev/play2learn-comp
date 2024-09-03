@@ -86,8 +86,8 @@
                   My Account
                 </a>
                 <a class="dropdown-item"
-                  href="#">
-                  My Django Jokes
+                  href="{% url 'reviews:create' %}">
+                  Review
                 </a>
                 <div class="dropdown-divider"></div>
                 <form method="post" action="{% url 'account_logout' %}">
