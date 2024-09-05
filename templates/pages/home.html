@@ -10,23 +10,36 @@
 {% block header %}Play2Learn Home Header{% endblock %}
 {% block main %}
   <p>Welcome to Play2Learn Home</p>
+  <div id="quote">
+    <h3>Happy clients say...</h3>
+    <p>This is a place holder paragraph</p>
+  </div>
   <section id="games">
     <div class="row g-0">
       <div class="card mb-3 mx-auto" id="game1" style="max-width: 540px;">
         <h3>Anagram Hunt</h3>
         <p>An anagram is a word made by rearranging the letters of another word. 
           For example, post, pots, opts, tops, and spot are all anagrams of stop. 
-          The object of the Anagram Hunt game is to find all the anagrams for a given word.</p>
-        <button id="play1" onclick="location.href='http://127.0.0.1:8000/anagram-hunt/'">Play</button> 
+          The object of the Anagram Hunt game is to find all the anagrams for a given word.
+        </p>
+        {% if user.is_authenticated %}
+          <button id="play1" onclick="location.href='http://127.0.0.1:8000/anagram-hunt/'">Play</button>
+        {% endif %}
       </div>
       <div class="card mb-3 mx-auto" id="game2" style="max-width: 540px;">
         <h3>Math Facts Practice</h3>
         <p>This is a simple game for practicing addition, subtraction, multiplication, and division. 
           The game ends when the timer runs out.
         </p>
-        <button id="play2" onclick="location.href='http://127.0.0.1:8000/math-facts/'">Play</button>
+        {% if user.is_authenticated %}
+          <button id="play2" onclick="location.href='http://127.0.0.1:8000/math-facts/'">Play</button>
+        {% endif %}
       </div>
     </div>
   </section> <!--end games-->
+    <!--Put this script at bottom so the DOM elements are loaded, 
+      or get null when $target = document.querySelector('#quote>p');
+    -->
+    <script src="../static/scripts/home.js"></script>
 {% endblock %}
 {% block footer %}Play2Learn Home Footer{% endblock %}
