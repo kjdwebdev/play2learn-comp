@@ -3,7 +3,8 @@ from django.urls import reverse_lazy
 
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, ListView
+
 from .models import Review
 from .forms import ReviewForm
 
@@ -19,3 +20,7 @@ class ReviewCreateView(SuccessMessageMixin, CreateView):
 
 class ReviewThanksView(TemplateView):
     template_name = 'reviews/thanks.html'
+
+class ReviewListView(ListView):
+    model = Review
+    template_name = 'reviews/review_list.html'
