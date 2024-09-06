@@ -1,0 +1,11 @@
+{% extends "_base_vue.html" %}
+
+{% block title %}Quotes{% endblock %}
+{% block main %}
+  <h2>Quotes</h2>
+  <ul class="list-group list-group-flush mb-3">
+    {% for review in review_list %}
+      <li class="list-group-item">{{ review.review }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

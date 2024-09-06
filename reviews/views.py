@@ -24,3 +24,12 @@ class ReviewThanksView(TemplateView):
 class ReviewListView(ListView):
     model = Review
     template_name = 'reviews/review_list.html'
+
+class QuoteListView(ListView):
+  model = Review
+  template_name = 'reviews/quote_list.html'
+  # context_object_name = 'strikes'
+  def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reviews_featured'] = Review.objects.filter(featured=True)
+        return context
