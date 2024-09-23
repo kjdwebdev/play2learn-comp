@@ -3,9 +3,15 @@
 {% block title %}Quotes{% endblock %}
 {% block main %}
   <h2>Quotes</h2>
+  quotes = review_list.all()
+
+    <p>quotes[0]</p>
+
+
+
   <ul class="list-group list-group-flush mb-3">
-    {% for quote in quote_list %}
-      <li class="list-group-item">{{ quote.review }}</li>
+    {% for review in review_list %}
+      <li class="list-group-item">{{ review.review }}</li>
     {% endfor %}
   </ul>
 {% endblock %}

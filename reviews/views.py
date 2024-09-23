@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView, TemplateView, ListView
+from django.views.generic import CreateView, DeleteView, DetailView, TemplateView, ListView, UpdateView
 
 from .models import Review
 from .forms import ReviewForm
@@ -21,6 +21,13 @@ class ReviewCreateView(SuccessMessageMixin, CreateView):
 class ReviewThanksView(TemplateView):
     template_name = 'reviews/thanks.html'
 
+class ReviewDeleteView(DeleteView):
+    model = Review
+    success_url = reverse_lazy('reviews:mylist')
+
+class ReviewDetailView(DetailView):
+    model = Review
+
 class ReviewListView(ListView):
     model = Review
     template_name = 'reviews/review_list.html'
@@ -28,10 +35,20 @@ class ReviewListView(ListView):
 class QuoteListView(ListView):
     model = Review
     template_name = 'reviews/quote_list.html'
-    
+
     def get_queryset(self):
-        qs = Review.objects.all()
+      qs = Review.objects.all()
+      return qs.filter(featured=True)
 
-        qs = qs.filter(featured=True)
+class MyReviewsListView(ListView):
+    model = Review
+    template_name = 'reviews/myreviews_list.html'
 
-        return qs()
+    def get_queryset(self):
+      qs = Review.objects.all()
+      return qs.filter(user=1)
+
+class ReviewUpdateView(UpdateView):
+    model = Review
+    success_url = reverse_lazy('reviews:mylist')
+    fields = [Review.review]
