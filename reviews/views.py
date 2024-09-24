@@ -52,4 +52,5 @@ class MyReviewsListView(ListView):
 class ReviewUpdateView(UpdateView):
     model = Review
     template_name = 'reviews/review_update.html'
+    fields = ('game', 'stars', 'review')
    
