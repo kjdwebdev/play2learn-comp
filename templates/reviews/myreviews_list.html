@@ -5,7 +5,9 @@
   <ul class="list-group list-group-flush mb-3">
     {% for review in review_list %}
       <li class="list-group-item">
-        {{ review.review }}
+        {{ review.game }}
+        {{ review.stars }}
+        <a href="{% url 'reviews:detail' review.pk %}">{{ review.review }}</a>
         <a href="{% url 'reviews:update' review.pk %}" class="btn btn-info btn-sm float-end me-2">Update</a>
         <a href="{% url 'reviews:delete' review.pk %}" class="btn btn-danger btn-sm float-end me-2">Delete</a>
       </li>

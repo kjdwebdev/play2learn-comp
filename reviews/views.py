@@ -27,6 +27,7 @@ class ReviewDeleteView(DeleteView):
 
 class ReviewDetailView(DetailView):
     model = Review
+    template_name = 'reviews/review_detail.html'
 
 class ReviewListView(ListView):
     model = Review
@@ -50,5 +51,5 @@ class MyReviewsListView(ListView):
 
 class ReviewUpdateView(UpdateView):
     model = Review
-    success_url = reverse_lazy('reviews:mylist')
-    fields = [Review.review]
+    template_name = 'reviews/review_update.html'
+   

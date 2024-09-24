@@ -1,16 +1,18 @@
 from django.conf import settings
 from django.db import models
 
+from common.utils.text import unique_slug
+
 GAMES = (
     (1, 'Anagram Hunt'),
     (2, 'Math Facts'),
 )
 STARS = (
-    (1, 'Exceptional'),
-    (2, 'Good'),
+    (5, 'Exceptional'),
+    (4, 'Good'),
     (3, 'Satisfactory'),
-    (4, 'Unsatisfactory'),
-    (5, 'Unacceptable')
+    (2, 'Unsatisfactory'),
+    (1, 'Unacceptable')
 )
     
 class Review(models.Model):
@@ -25,6 +27,17 @@ class Review(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     featured = models.BooleanField(default=True)
+
+    def get_absolute_url(self):
+        #return reverse('reviews:detail', args=[str(self.pk)])
+        return reverse('reviews:detail', args=[self.slug])
+    
+    def save(self, *args, **kwargs):
+        #create the slug if the record doesn't already have one
+        if not self.slug:
+            value = str(self)
+            self.slug = unique_slug(value, type(self))
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.review
