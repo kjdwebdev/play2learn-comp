@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, DeleteView, DetailView, TemplateView, ListView, UpdateView
 
 from .models import Review
@@ -27,7 +28,7 @@ class ReviewDeleteView(DeleteView):
 
 class ReviewDetailView(DetailView):
     model = Review
-    template_name = 'reviews/review_detail.html'
+
 
 class ReviewListView(ListView):
     model = Review
@@ -49,8 +50,11 @@ class MyReviewsListView(ListView):
       qs = Review.objects.all()
       return qs.filter(user=1)
 
-class ReviewUpdateView(UpdateView):
+class ReviewUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):
     model = Review
-    template_name = 'reviews/review_update.html'
-    fields = ('game', 'stars', 'review')
-   
+    form_class = ReviewForm
+    success_message = 'Review Updated'
+  
+    def test_func(self):
+        obj = self.get_object()
+        return self.request.user == obj.user

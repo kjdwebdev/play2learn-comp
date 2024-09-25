@@ -21,12 +21,15 @@ class Review(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
         related_name='gamereview'
     )
-    game = models.SmallIntegerField(choices=GAMES)
-    stars = models.SmallIntegerField(choices=STARS)
-    review = models.TextField(max_length=200)
+    game = models.SmallIntegerField(choices=GAMES, editable=True)
+    stars = models.SmallIntegerField(choices=STARS, editable=True)
+    review = models.TextField(max_length=200, editable=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     featured = models.BooleanField(default=True)
+    slug = models.SlugField(
+        max_length=50, unique=True, null=True, editable=False
+    )
 
     def get_absolute_url(self):
         #return reverse('reviews:detail', args=[str(self.pk)])

@@ -6,7 +6,7 @@ from .models import Review
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
-    list_display = ['id','user', 'game', 'stars', 'review','featured']
+    list_display = ['id','user', 'game', 'stars', 'review','featured', 'slug', 'created', 'updated']
 
     def get_readonly_fields(self, request, obj=None):
         if obj: # editing an existing object
