@@ -21,6 +21,7 @@ from django.urls import path, include
 from games.views import AnagramHuntView, MathFactsView
 from pages.views import HomePageView
 
+
 urlpatterns = [
     # Admin
     path('admin/doc', include('django.contrib.admindocs.urls')),
@@ -34,7 +35,6 @@ urlpatterns = [
     path('', include("games.urls")),
     path('contact/', include('contact.urls')),
     path('pages/', include("pages.urls")),
-    path('reviews/', include('reviews.urls')),
+    path('reviews/', include("reviews.urls")),
     
 ]
-

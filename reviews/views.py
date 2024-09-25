@@ -26,6 +26,19 @@ class ReviewDeleteView(DeleteView):
     model = Review
     success_url = reverse_lazy('reviews:mylist')
 
+    def delete(self, request, *args, **kwargs):
+        result = super().delete(request, *args, **kwargs)
+        return result
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Review Deleted.')
+        return super().form_valid(form)
+
+    def test_func(self):
+        obj = self.get_object()
+        return self.request.user == obj.user
+
+
 class ReviewDetailView(DetailView):
     model = Review
 
@@ -53,7 +66,7 @@ class MyReviewsListView(ListView):
 class ReviewUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):
     model = Review
     form_class = ReviewForm
-    success_message = 'Review Updated'
+    success_url = reverse_lazy('reviews:thanks')
   
     def test_func(self):
         obj = self.get_object()
