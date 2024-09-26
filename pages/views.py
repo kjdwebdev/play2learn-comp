@@ -1,10 +1,17 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,ListView
+from reviews.models import Review
+from reviews.forms import ReviewForm
 
 # Create your views here.
 # Home Page
-class HomePageView(TemplateView):
+class HomePageView(ListView):
+    model=Review
     template_name = 'pages/home.html'
 
+    def get_queryset(self):
+      qs = Review.objects.all()
+      return qs.filter(featured=True)
+    
 # About Us
 class AboutUsView(TemplateView):
     template_name = 'pages/about_us.html'

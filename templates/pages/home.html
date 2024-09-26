@@ -15,15 +15,15 @@
       <h3>Happy clients say...</h3>
     </div>
     <div id="quote-slideshow" class="carousel slide carousel-fade mx-auto col-md-4 col-sm-12"
-      data-bs-ride="carousel">
+    data-bs-ride="carousel">
       <div class="carousel-inner">
         {% for review in review_list %}
-          <div class="carousel-item {% if loop.index == 1 %}active{% endif %}" id="quote{{ loop.index }}">
-            <p>{{ review.review }}</p>
+          <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" id="slide{{ forloop.counter }}">
+            {{ review.review }}
           </div>
         {% endfor %}
-      </div> <!-- end carousel inner-->
-    </div><!-- end quote-slideshow-->
+      </div>
+    </div>
   </div>
 
   <section id="games">

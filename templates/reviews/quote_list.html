@@ -3,10 +3,19 @@
 {% block title %}Quotes{% endblock %}
 {% block main %}
   <h2>Quotes</h2>
-  quotes = review_list.all()
-
-    <p>quotes[0]</p>
-
+  <div id="quote" class="mx-auto col-md-4 col-sm-12">
+    <h3>Happy clients say...</h3>
+  </div>
+  <div id="quote-slideshow" class="carousel slide carousel-fade mx-auto col-md-4 col-sm-12"
+  data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for review in review_list %}
+        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" id="slide{{ forloop.counter }}">
+          {{ review.review }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 
 
   <ul class="list-group list-group-flush mb-3">
