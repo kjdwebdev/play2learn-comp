@@ -38,10 +38,8 @@ class ReviewDeleteView(DeleteView):
         obj = self.get_object()
         return self.request.user == obj.user
 
-
 class ReviewDetailView(DetailView):
     model = Review
-
 
 class ReviewListView(ListView):
     model = Review
@@ -61,7 +59,7 @@ class MyReviewsListView(ListView):
 
     def get_queryset(self):
       qs = Review.objects.all()
-      return qs.filter(user=1)
+      return qs.filter(user=self.request.user)
 
 class ReviewUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):
     model = Review
