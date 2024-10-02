@@ -24,7 +24,7 @@ from pages.views import HomePageView
 
 urlpatterns = [
     # Admin
-    path('admin/doc', include('django.contrib.admindocs.urls')),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path("admin/", admin.site.urls),
 
     # User Management
