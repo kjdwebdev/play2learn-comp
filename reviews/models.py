@@ -27,7 +27,7 @@ class Review(models.Model):
     review = models.TextField(max_length=200, editable=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    featured = models.BooleanField(default=True)
+    featured = models.BooleanField(default=False)
     slug = models.SlugField(
         max_length=50, unique=True, null=True, editable=False
     )
