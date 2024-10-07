@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from common.utils.text import unique_slug
 
@@ -36,7 +36,7 @@ class AnagramHuntScores(models.Model):
         return reverse('AnagramHuntScores:detail', args=[self.slug])
     
     def __str__(self):
-        return str(self.score)
+        return self.slug
 
 class MathFactsScores(models.Model):
     user = models.ForeignKey(
@@ -68,7 +68,44 @@ class MathFactsScores(models.Model):
     
     def get_absolute_url(self):
         #return reverse('reviews:detail', args=[str(self.pk)])
-        return reverse('MathFactsSCores:detail', args=[self.slug])
+        return reverse('MathFactsScores:detail', args=[self.slug])
     
     def __str__(self):
-        return str(self.score)
+        return self.slug
+    
+class Ascore(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+        related_name='ascore'
+    )
+    score = models.IntegerField(
+        default=1,
+        editable=True,
+        )
+    max_number = models.IntegerField(
+        default=5,
+        editable=True,
+        validators=[
+            MaxValueValidator(8),
+            MinValueValidator(5)
+            ]
+        )
+    operation = models.CharField(max_length=30, default="anagramhunt", editable=True)
+    end_time = models.DateTimeField(auto_now=True, editable=True)
+    slug = models.SlugField(
+        max_length=50, unique=True, null=True, editable=False)
+    
+    def save(self, *args, **kwargs):
+        #create the slug if the record doesn't already have one
+        if not self.slug:
+            value = 'anagramhunt' + str(self.score)
+            self.slug = unique_slug(value, type(self))
+        super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        #return reverse('reviews:detail', args=[str(self.pk)])
+        return reverse('games:adetail', args=[self.slug])
+        #return reverse('games:adetail', args=[str(self.pk)])
+    
+    def __str__(self):
+        return self.slug

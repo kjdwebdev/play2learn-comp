@@ -1,0 +1,18 @@
+{% extends "_base_vue.html" %}
+
+{% block title %}Anagram Hunt Score Submittal{% endblock %}
+{% block main %}
+  <h2>Anagram Hunt Score Submittal</h2>
+  <div class="card border-primary m-auto mb-3 p-3"
+    style="max-width: 30rem">
+    <form method="post">
+      {% csrf_token %}
+      {{ ascore.user }}
+      {{ ascore.score }}
+      {{ ascore.max_number }}
+      {{ ascore.operation }}
+      <button class="btn btn-success float-end">Save</button>
+    </form>
+  </div>
+
+{% endblock %}

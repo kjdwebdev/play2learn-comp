@@ -1,0 +1,13 @@
+{% extends "_base_vue.html" %}
+
+{% block title %}Anagram Hunt Scores{% endblock %}
+{% block main %}
+  <h2>Anagram Hunt Scores</h2>
+  <ul class="list-group list-group-flush mb-3">
+    {% for score in AnagramHuntScores_list %}
+      <li class="list-group-item">
+        <a href="{% url 'AnagramHuntScores:detail' AnagramHuntScores.pk %}">{{ AnagramHuntScores.score }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

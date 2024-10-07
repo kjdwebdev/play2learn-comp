@@ -1,12 +1,12 @@
 {% extends "_base_vue.html" %}
 
-{% block title %}Reviews{% endblock %}
+{% block title %}Math Facts Scores{% endblock %}
 {% block main %}
   <h2>Math Facts Scores</h2>
   <ul class="list-group list-group-flush mb-3">
-    {% for score in MathFactsScores %}
+    {% for MathFactsScore in MathFactsScores_list %}
       <li class="list-group-item">
-        <a href="{% url 'MathFactsScores:detail' MathFactsScores.pk %}">{{ MathFactsScores.score }}</a>
+        <a href="{% url 'MathFactsScores:detail' MathFactsScores.pk %}">{{ MathFactsScore.score }}</a>
       </li>
     {% endfor %}
   </ul>

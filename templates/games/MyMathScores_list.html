@@ -1,0 +1,14 @@
+{% extends "_base_vue.html" %}
+
+{% block title %}My Math Scores{% endblock %}
+{% block main %}
+  <ul class="list-group list-group-flush mb-3">
+    {% for score in MathFactsScores_list %}
+      <li class="list-group-item">
+        <a href="{% url 'MathFactsScores:detail' MathFactsScores.slug %}">{{ MathFactsScores.score }}</a>
+        <a href="{% url 'MathFactsScores:update' MathFactsScoresslug %}" class="btn btn-info btn-sm float-end me-2">Update</a>
+        <a href="{% url 'MathFactsScores:delete' MathFactsScoresslug %}" class="btn btn-danger btn-sm float-end me-2">Delete</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
