@@ -1,9 +1,7 @@
 {% extends "_base_vue.html" %}
 
-{% block title %}Anagram Hunt{% endblock %}
+{% block title %}Anagram Leaders{% endblock %}
 {% block main %}
-  <h1>Anagram Hunt</h1>
-  <!--Leader Board-->
   <h2>Anagram Leaders</h2>
   <ul class="list-group list-group-flush mb-3">
     {% for ascore in ascore_list %}
@@ -12,7 +10,4 @@
       </li>
     {% endfor %}
   </ul>
-
-  <!--The Game-->
-  {{ block.super }}
-{% endblock %} 
+{% endblock %}

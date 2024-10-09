@@ -106,6 +106,26 @@ class MscoreUpdateView(UpdateView):
         return self.request.user == obj.user
 
 #Leaderboards
+class AleaderListView(ListView):
+    model = Ascore
+    template_name = 'games/aleader_list.html'
+    ordering = ['-score']
+
+    def get_queryset(self):
+        qs = Ascore.objects.all().order_by('-score')
+        #0=first one and it doesn't include 3
+        return qs[0:3]
+
+class MleaderListView(ListView):
+    model = Ascore
+    template_name = 'games/mleader_list.html'
+    ordering = ['-score']
+
+    def get_queryset(self):
+        qs = Mscore.objects.all().order_by('-score')
+        #0=first one and it doesn't include 3
+        return qs[0:3]
+
 #My Scores
 class MyascoreListView(ListView):
     model = Ascore

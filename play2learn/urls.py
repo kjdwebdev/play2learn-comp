@@ -18,7 +18,7 @@ from django.conf import settings
 
 from django.contrib import admin
 from django.urls import path, include
-from games.views import AnagramHuntView, MathFactsView
+from games.views import AnagramHuntView, MathFactsView, AleaderListView, MleaderListView
 from pages.views import HomePageView
 
 
