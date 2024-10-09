@@ -7,10 +7,10 @@
     style="max-width: 30rem">
     <form method="post">
       {% csrf_token %}
-      {{ MathFactsScores.user }}
-      {{ MathFactsScores.score }}
-      {{ MathFactsScores.max_number }}
-      {{ MathFactsScores.operation }}
+      {{ mscore.user }}
+      {{ mscore.score }}
+      {{ mscore.max_number }}
+      {{ mscore.operation }}
       <button class="btn btn-success float-end">Save</button>
     </form>
   </div>

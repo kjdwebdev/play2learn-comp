@@ -1,6 +1,9 @@
 from django.urls import path, include
 
-from games.views import MathFactsView, AnagramHuntView, AscoreListView, AscoreDetailView, MathFactsScoresListView, MathFactsScoresDetailView
+from games.views import (MathFactsView, AnagramHuntView, 
+    AscoreListView, AscoreDetailView, MscoreListView, MscoreDetailView,
+    MyascoreListView, MymscoreListView
+)
 from pages.views import HomePageView
 
 app_name = 'games'
@@ -11,6 +14,8 @@ urlpatterns = [
     
     path('ascore/', AscoreListView.as_view(), name='ascore'),
     path('<slug>/adetail/', AscoreDetailView.as_view(), name='adetail'),
-    path('math-scores/', MathFactsScoresListView.as_view(), name='math-scores'),
-    path('<slug>/math-score-detail/', MathFactsScoresDetailView.as_view(), name='math-score-detail'),
+    path('myascore/', MyascoreListView.as_view(), name='myascore'),
+    path('mscore/', MscoreListView.as_view(), name='mscore'),
+    path('<slug>/mdetail/', MscoreDetailView.as_view(), name='mdetail'),
+    path('mymscore/', MymscoreListView.as_view(), name='mymscore'),
 ]

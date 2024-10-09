@@ -1,19 +1,13 @@
 from typing import Any
 from django.contrib import admin
-from .models import AnagramHuntScores, Ascore, MathFactsScores
-
-# Register your models here.
-@admin.register(AnagramHuntScores)
-class AnagramHuntScoresAdmin(admin.ModelAdmin):
-    model = AnagramHuntScores,
-    list_display = ['id', 'user', 'score', 'max_number', 'operation', 'end_time']
+from .models import Ascore, Mscore
 
 @admin.register(Ascore)
-class AnagramHuntScoresAdmin(admin.ModelAdmin):
+class AscoreAdmin(admin.ModelAdmin):
     model = Ascore,
-    list_display = ['id', 'user', 'score', 'max_number', 'operation', 'end_time']
+    list_display = ['id', 'user', 'score', 'max_number', 'operation', 'end_time', 'slug']
 
-@admin.register(MathFactsScores)                 
-class MathFactsScoresAdmin(admin.ModelAdmin):
-    model = MathFactsScores,
-    list_display = ['id', 'user', 'score', 'max_number', 'operation', 'end_time']
+@admin.register(Mscore)                 
+class MscoreAdmin(admin.ModelAdmin):
+    model = Mscore,
+    list_display = ['id', 'user', 'score', 'max_number', 'operation', 'end_time', 'slug']

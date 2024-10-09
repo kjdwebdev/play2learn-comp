@@ -1,0 +1,13 @@
+{% extends "_base_vue.html" %}
+
+{% block title %}Math Scores{% endblock %}
+{% block main %}
+  <h2>Math Scores</h2>
+  <ul class="list-group list-group-flush mb-3">
+    {% for mscore in mscore_list %}
+      <li class="list-group-item">
+        <a href="{% url 'games:mdetail' mscore.slug %}">{{ mscore.user }}, {{ mscore.score }}, {{mscore.max_number }}, {{mscore.end_time }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

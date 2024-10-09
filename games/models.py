@@ -109,3 +109,40 @@ class Ascore(models.Model):
     
     def __str__(self):
         return self.slug
+    
+class Mscore(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+        related_name='mscore'
+    )
+    score = models.IntegerField(
+        default=1,
+        editable=True,
+        )
+    max_number = models.IntegerField(
+        default=30,
+        editable=True,
+        validators=[
+            MaxValueValidator(100),
+            MinValueValidator(1)
+            ]
+        )
+    operation = models.CharField(max_length=30, default="operation", editable=True)
+    end_time = models.DateTimeField(auto_now=True, editable=True)
+    slug = models.SlugField(
+        max_length=50, unique=True, null=True, editable=False)
+    
+    def save(self, *args, **kwargs):
+        #create the slug if the record doesn't already have one
+        if not self.slug:
+            value = self.operation + str(self.score)
+            self.slug = unique_slug(value, type(self))
+        super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        #return reverse('reviews:detail', args=[str(self.pk)])
+        return reverse('games:mdetail', args=[self.slug])
+        #return reverse('games:mdetail', args=[str(self.pk)])
+    
+    def __str__(self):
+        return self.slug

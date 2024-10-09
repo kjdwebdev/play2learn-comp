@@ -96,6 +96,14 @@
                   href="{% url 'reviews:mylist' %}">
                   My Reviews
                 </a>
+                <a class="dropdown-item"
+                  href="{% url 'games:myascore' %}">
+                  My Anagram Scores
+                </a>
+                <a class="dropdown-item"
+                  href="{% url 'games:mymscore' %}">
+                  My Math Scores
+                </a>
                 <div class="dropdown-divider"></div>
                 <form method="post" action="{% url 'account_logout' %}">
                   {% csrf_token %}

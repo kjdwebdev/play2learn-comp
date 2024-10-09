@@ -3,10 +3,11 @@ import html
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, TemplateView, ListView, UpdateView
-from .models import Ascore, AnagramHuntScores, MathFactsScores
-from .forms import AnagramHuntScoresForm, MathFactsScoresForm, AscoreForm
+from .models import Ascore, Mscore
+from .forms import AscoreForm, MscoreForm
 
 #These are the actual games
 class MathFactsView(TemplateView):
@@ -15,15 +16,7 @@ class MathFactsView(TemplateView):
 class AnagramHuntView(TemplateView):
     template_name = "anagram-hunt.html"
 
-#These are for the scores
-class AnagramHuntScoresCreateView(CreateView):
-    model = AnagramHuntScores
-    form_class = AnagramHuntScoresForm
-  
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-    
+#These are for the scores    
 class AscoreCreateView(CreateView):
     model = Ascore
     form_class = AscoreForm
@@ -52,27 +45,41 @@ class AscoreDeleteView(DeleteView):
         obj = self.get_object()
         return self.request.user == obj.user
 
-class MathFactsScoresCreateView(CreateView):
-    model = MathFactsScores
-    form_class = MathFactsScoresForm
+class MscoreCreateView(CreateView):
+    model = Mscore
+    form_class = MscoreForm
+    success_url = reverse_lazy('games:thanks')
   
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class AnagramHuntScoresDetailView(DetailView):
-    model = AnagramHuntScores
+class MscoreThanksView(TemplateView):
+    template_name = 'games\thanks.html'
+
+class MscoreDeleteView(DeleteView):
+    model = Mscore
+    success_url = reverse_lazy('games:thanks')
+
+    def delete(self, request, *args, **kwargs):
+        result = super().delete(request, *args, **kwargs)
+        return result
+  
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        obj = self.get_object()
+        return self.request.user == obj.user
 
 class AscoreDetailView(DetailView):
     model = Ascore
     template_name = 'games/ascore_detail.html'
 
-class MathFactsScoresDetailView(DetailView):
-    model = MathFactsScores
-
-class AnagramHuntScoresListView(ListView):
-    model = AnagramHuntScores
-    template_name = "games/AnagramHuntScores_list.html"
+class MscoreDetailView(DetailView):
+    model = Mscore
+    template_name = 'games/mscore_detail.html'
 
 class AscoreListView(ListView):
     model = Ascore
@@ -86,8 +93,32 @@ class AscoreUpdateView(UpdateView):
         obj = self.get_object()
         return self.request.user == obj.user
 
-class MathFactsScoresListView(ListView):
-    model = MathFactsScores
-    success_url = success_url = reverse_lazy('games:thanks')
+class MscoreListView(ListView):
+    model = Mscore
+    template_name = "games/mscore_list.html"
+
+class MscoreUpdateView(UpdateView):
+    model = Mscore
+    template_name = "games/mscore_list.html"
+
+    def test_func(self):
+        obj = self.get_object()
+        return self.request.user == obj.user
 
 #Leaderboards
+#My Scores
+class MyascoreListView(ListView):
+    model = Ascore
+    template_name = 'games/myascore_list.html'
+
+    def get_queryset(self):
+        qs = Ascore.objects.all()
+        return qs.filter(user=self.request.user)
+
+class MymscoreListView(ListView):
+    model = Ascore
+    template_name = 'games/mymscore_list.html'
+
+    def get_queryset(self):
+        qs = Mscore.objects.all()
+        return qs.filter(user=self.request.user)
