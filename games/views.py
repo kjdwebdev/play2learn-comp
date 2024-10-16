@@ -6,15 +6,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, TemplateView, ListView, UpdateView
-from .models import Ascore, Mscore
-from .forms import AscoreForm, MscoreForm
+from games.models import Ascore, Mscore
+from games.forms import AscoreForm, MscoreForm
 
 #These are the actual games
 class MathFactsView(TemplateView):
+    model=Mscore
     template_name = "math-facts.html"
 
+    def get_queryset(self):
+        qs = Mscore.objects.all().order_by('-score')
+        #0=first one and it doesn't include 3
+        return qs[0:3]
+
 class AnagramHuntView(TemplateView):
-    template_name = "anagram-hunt.html"
+    model = Ascore
+    template_name = 'aleader_list2.html'
+    ordering = ['-score']
+
+    def get_queryset(self):
+        qs = Ascore.objects.all().order_by('-score')
+        #0=first one and it doesn't include 3
+        return qs[0:3]
 
 #These are for the scores    
 class AscoreCreateView(CreateView):
@@ -123,6 +136,16 @@ class MleaderListView(ListView):
 
     def get_queryset(self):
         qs = Mscore.objects.all().order_by('-score')
+        #0=first one and it doesn't include 3
+        return qs[0:3]
+    
+class AleaderList2View(ListView):
+    model = Ascore
+    template_name = 'aleader_list2.html'
+    ordering = ['-score']
+
+    def get_queryset(self):
+        qs = Ascore.objects.all().order_by('-score')
         #0=first one and it doesn't include 3
         return qs[0:3]
 

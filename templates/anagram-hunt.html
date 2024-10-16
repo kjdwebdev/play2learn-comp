@@ -1,18 +1,17 @@
 {% extends "_base_vue.html" %}
+{% load static %}
+
+{% block javascript %}
+{% endblock %}
 
 {% block title %}Anagram Hunt{% endblock %}
 {% block main %}
   <h1>Anagram Hunt</h1>
-  <!--Leader Board-->
   <h2>Anagram Leaders</h2>
   <ul class="list-group list-group-flush mb-3">
-    {% for ascore in ascore_list %}
-      <li class="list-group-item">
-        <a href="{% url 'games:adetail' ascore.slug %}">{{ ascore.user }}, {{ ascore.score }}, {{ascore.max_number }}, {{ascore.end_time }}</a>
-      </li>
-    {% endfor %}
+    <li>leader1</li>
+    <li>leader2</li>
+    <li>leader3</li>
   </ul>
-
-  <!--The Game-->
   {{ block.super }}
 {% endblock %} 

@@ -129,7 +129,6 @@ export default {
     async recordScore() {
       // TODO: when Anagram Hunt finishes, make an Ajax call with axios (this.axios)
       // to record the score on the backend
-
     }
   },
   watch: {
