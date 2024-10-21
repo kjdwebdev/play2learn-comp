@@ -1,5 +1,13 @@
 <template>
   <div class="container" style="width: 500px">
+    <div class="container" style="width: 500px">
+      <h2>Anagram High Scores</h2>
+      <ul>
+        <li>leader #1</li>
+        <li>leader #2</li>
+        <li>leader #3</li>
+      </ul>
+    </div>
     <!-- Start Screen -->
     <div v-if="screen=='start'" class="container">
       <div class="row m-auto">

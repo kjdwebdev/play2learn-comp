@@ -21,7 +21,7 @@ class MathFactsView(TemplateView):
 
 class AnagramHuntView(TemplateView):
     model = Ascore
-    template_name = 'aleader_list2.html'
+    template_name = 'anagram-hunt.html'
     ordering = ['-score']
 
     def get_queryset(self):
