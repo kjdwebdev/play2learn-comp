@@ -3,7 +3,12 @@
 {% block title %}Math Facts{% endblock %}
 {% block main %}
   <h1>Math Facts</h1>
-
+  <h2>Math Facts High Scores</h2>
+  <ol>
+    {% for score in math_scores %}
+        <li>{{score.score}}:  {{score.user.username}}  {{score.end_time}}</li>
+    {% endfor %}
+  </ol>
   <p>User id:  {{ request.user.id }}</p>
   {{ block.super }}
   <p>Username:  {{ request.user.username  }}</p>

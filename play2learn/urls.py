@@ -18,7 +18,7 @@ from django.conf import settings
 
 from django.contrib import admin
 from django.urls import path, include
-from games.views import (AleaderListView, MleaderListView, 
+from games.views import (
     AnagramHuntView, MathFactsView, 
     AscoreDetailView, MscoreDetailView, 
     AscoreListView, MscoreListView

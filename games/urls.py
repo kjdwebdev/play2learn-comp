@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from games.views import (MathFactsView, AnagramHuntView, GameScoresView, record_score,                 
     AscoreListView, AscoreDetailView, MscoreListView, MscoreDetailView,
-    MyascoreListView, MymscoreListView, AleaderListView, MleaderListView, AleaderList2View, MyScoresView
+    AleaderList2View, MyScoresView
 )
 from pages.views import HomePageView
 
@@ -18,11 +18,9 @@ urlpatterns = [
     #anagrams
     path('ascore/', AscoreListView.as_view(), name='ascore'),
     path('<slug>/adetail/', AscoreDetailView.as_view(), name='adetail'),
-    path('myascore/', MyascoreListView.as_view(), name='myascore'),
-    path('aleader/', AleaderListView.as_view(), name='aleader'),
+
     #Math Facts
     path('mscore/', MscoreListView.as_view(), name='mscore'),
     path('<slug>/mdetail/', MscoreDetailView.as_view(), name='mdetail'),
-    path('mymscore/', MymscoreListView.as_view(), name='mymscore'),
-    path('mleader/', MleaderListView.as_view(), name='mleader'),
+
 ]

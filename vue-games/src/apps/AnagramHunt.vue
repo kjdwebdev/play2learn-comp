@@ -1,7 +1,7 @@
 <template>
   <div class="container" style="width: 500px">
     <div class="container" style="width: 500px">
-      <h2>Anagram High Scores</h2>
+      <h2>Winners</h2>
       <ul>
         <li>leader #1</li>
         <li>leader #2</li>

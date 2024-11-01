@@ -16,20 +16,20 @@ class MathFactsView(TemplateView):
     model = GameScore
     template_name = "math-facts.html"
 
-    def get_queryset(self):
-        qs = GameScore.objects.filter(game__exact='MATH').order_by('-score')
-        #0=first one and it doesn't include 3
-        return qs[0:3]
+    def get_context_data(self, **kwargs):
+        context = super(MathFactsView, self).get_context_data(**kwargs)
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH').order_by('-score')[0:3]
+        return context
 
 class AnagramHuntView(TemplateView):
-    model = Ascore
+    model = GameScore
     template_name = 'anagram-hunt.html'
     ordering = ['-score']
 
-    def get_queryset(self):
-        qs = Ascore.objects.all().order_by('-score')
-        #0=first one and it doesn't include 3
-        return qs[0:3]
+    def get_context_data(self, **kwargs):
+        context = super(AnagramHuntView, self).get_context_data(**kwargs)
+        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM').order_by('-score')[0:3]
+        return context
 
 #These are for the scores    
 class AscoreCreateView(CreateView):
@@ -121,26 +121,15 @@ class MscoreUpdateView(UpdateView):
         return self.request.user == obj.user
 
 #Leaderboards
-class AleaderListView(ListView):
-    model = Ascore
-    template_name = 'games/aleader_list.html'
-    ordering = ['-score']
+class GameScoresView(TemplateView):
+    template_name="games/game-scores.html"
 
-    def get_queryset(self):
-        qs = Ascore.objects.all().order_by('-score')
-        #0=first one and it doesn't include 3
-        return qs[0:3]
+    def get_context_data(self, **kwargs):
+        context = super(GameScoresView, self).get_context_data(**kwargs)
+        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM').order_by('-score')[0:3]
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH').order_by('-score')[0:3]
+        return context
 
-class MleaderListView(ListView):
-    model = Ascore
-    template_name = 'games/mleader_list.html'
-    ordering = ['-score']
-
-    def get_queryset(self):
-        qs = Mscore.objects.all().order_by('-score')
-        #0=first one and it doesn't include 3
-        return qs[0:3]
-    
 class AleaderList2View(ListView):
     model = Ascore
     template_name = 'aleader_list2.html'
@@ -152,31 +141,6 @@ class AleaderList2View(ListView):
         return qs[0:3]
 
 #My Scores
-class MyascoreListView(ListView):
-    model = Ascore
-    template_name = 'games/myascore_list.html'
-
-    def get_queryset(self):
-        qs = Ascore.objects.all()
-        return qs.filter(user=self.request.user)
-
-class MymscoreListView(ListView):
-    model = Ascore
-    template_name = 'games/mymscore_list.html'
-
-    def get_queryset(self):
-        qs = Mscore.objects.all()
-        return qs.filter(user=self.request.user)
-    
-class GameScoresView(TemplateView):
-    template_name="games/game-scores.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(GameScoresView, self).get_context_data(**kwargs)
-        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM').order_by('-score')[0:3]
-        context['math_scores'] = GameScore.objects.filter(game__exact='MATH').order_by('-score')[0:3]
-        return context
-
 class MyScoresView(TemplateView):
     template_name = 'games/myscores.html'
 
