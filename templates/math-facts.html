@@ -3,5 +3,12 @@
 {% block title %}Math Facts{% endblock %}
 {% block main %}
   <h1>Math Facts</h1>
+
+  <p>User id:  {{ request.user.id }}</p>
   {{ block.super }}
+  <p>Username:  {{ request.user.username  }}</p>
+  <p>User first_name:  {{ request.user.first_name  }}</p>
+  <p>User last_name:  {{ request.user.last_name  }}</p>
+  <p>This user: this.user</p>
+  {{ user.id }}
 {% endblock %}

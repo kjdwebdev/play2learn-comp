@@ -21,7 +21,7 @@
   <!--Add in the sitewide stylesheets-->
   <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
   <link rel="stylesheet" href="{% static 'css/play2learn1.css' %}">
-  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+  <link rel="shortcut icon" href="#">
   <script defer src="http://localhost:8080/js/chunk-vendors.js"></script><script defer src="http://localhost:8080/js/app.js"></script>
 </head>
 
@@ -76,12 +76,8 @@
                   Math Facts
                 </a>
                 <a class="dropdown-item"
-                  href="{% url 'games:aleader' %}">
-                  Anagram Hunt Leaders
-                </a>
-                <a class="dropdown-item"
-                  href="{% url 'games:mleader' %}">
-                  Math Facts Leaders
+                  href="{% url 'games:game-scores' %}">
+                  Leader Board 
                 </a>
               </div>
             </li>
@@ -106,12 +102,8 @@
                   My Reviews
                 </a>
                 <a class="dropdown-item"
-                  href="{% url 'games:myascore' %}">
-                  My Anagram Scores
-                </a>
-                <a class="dropdown-item"
-                  href="{% url 'games:mymscore' %}">
-                  My Math Scores
+                  href="{% url 'games:myscores' %}">
+                  My Scores
                 </a>
                 <div class="dropdown-divider"></div>
                 <form method="post" action="{% url 'account_logout' %}">

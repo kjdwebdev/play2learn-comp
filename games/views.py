@@ -1,4 +1,6 @@
 import html
+import json
+from django.http import JsonResponse
 
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -6,16 +8,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, TemplateView, ListView, UpdateView
-from games.models import Ascore, Mscore
+from games.models import Ascore, Mscore, GameScore
 from games.forms import AscoreForm, MscoreForm
 
 #These are the actual games
 class MathFactsView(TemplateView):
-    model=Mscore
+    model = GameScore
     template_name = "math-facts.html"
 
     def get_queryset(self):
-        qs = Mscore.objects.all().order_by('-score')
+        qs = GameScore.objects.filter(game__exact='MATH').order_by('-score')
         #0=first one and it doesn't include 3
         return qs[0:3]
 
@@ -165,3 +167,44 @@ class MymscoreListView(ListView):
     def get_queryset(self):
         qs = Mscore.objects.all()
         return qs.filter(user=self.request.user)
+    
+class GameScoresView(TemplateView):
+    template_name="games/game-scores.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(GameScoresView, self).get_context_data(**kwargs)
+        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM').order_by('-score')[0:3]
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH').order_by('-score')[0:3]
+        return context
+
+class MyScoresView(TemplateView):
+    template_name = 'games/myscores.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MyScoresView, self).get_context_data(**kwargs)
+        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM', user=self.request.user).order_by('-score')[0:3]
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH', user=self.request.user).order_by('-score')[0:3]
+        return context
+
+def record_score(request):
+    data = json.loads(request.body)
+
+    game = data["game"]
+    score = data["score"]
+    max_number = data["max_number"]
+    operation = data["operation"]
+    #user_id=request.user.user_id
+    user_id = data["user_id"]
+    
+    new_score = GameScore(game=game, score=score, max_number=max_number, operation=operation, user_id=user_id)
+    #new_score = GameScore(game=game, score=score, max_number=max_number, operation=operation, user_id=request.user.user_id)
+    new_score.save()
+
+    response = {
+        "success": True
+    }
+
+    return JsonResponse(response)
+
+
+
