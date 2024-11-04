@@ -11,43 +11,78 @@
 {% block main %}
   <div class="container">
     <div id="quote" class="mx-auto col-md-4 col-sm-12">
-      <h3>Happy clients say...</h3>
+      <h1>Happy clients say...</h1>
     </div>
-    <div id="quote-slideshow" class="carousel slide carousel-fade mx-auto col-md-4 col-sm-12"
-    data-bs-ride="carousel">
-      <div class="carousel-inner">
-        {% for review in review_list %}
-          <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" id="slide{{ forloop.counter }}">
-            {{ review.review }}
+    
+    <div class="card mb-3 mx-auto" style="max-width: 540px; height: 150px;"> 
+      <div class="row">
+        <div class="col-md-4">
+          <img 
+              src="../static/images/happy1.png"
+              alt="smiley face meter"
+              class="img-fluid float-start" 
+          />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <p class="card-text">
+              <div id="quote-slideshow" class="carousel slide carousel-fade mx-auto col-md-8 col-sm-12"
+              data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  {% for review in review_list %}
+                    <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" id="slide{{ forloop.counter }}">
+                      {{ review.review }}
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </p>
+
+
           </div>
-        {% endfor %}
+
+ 
+          </div>
+
+        </div>
+
+ 
+
       </div>
     </div>
+
   </div>
 
   <section id="games">
     <div class="container">
       <div class="row justify-content-center" >
-        <div id="game1" class="game col-md-4">
-          <h3>Anagram Hunt</h3>
-          <p>An anagram is a word made by rearranging the letters of another word. 
-            For example, post, pots, opts, tops, and spot are all anagrams of stop. 
-            The object of the Anagram Hunt game is to find all the anagrams for a given word.</p>
-          {% if user.is_authenticated %}
-            <button id="play1" onclick="location.href='http://127.0.0.1:8000/anagram-hunt/'">Play</button>
-          {% endif %}
+        <div class="card col-md-3 mx-auto">
+          <div id="game1" class="game">
+            <h3>Anagram Hunt</h3>
+            <p>An anagram is a word made by rearranging the letters of another word. 
+              For example, post, pots, opts, tops, and spot are all anagrams of stop. 
+              The object of the Anagram Hunt game is to find all the anagrams for a given word.</p>
+            {% if user.is_authenticated %}
+              <button class="btn btn-success float-end" id="play1" onclick="location.href='http://127.0.0.1:8000/anagram-hunt/'">Play</button>
+            {% endif %}
+          </div>
+        </div>  
+
+
+        <div class="card col-md-3 mx-auto">
+          <div id="game2" class="game">
+            <h3>Mathificent</h3>
+            <p>This is a simple game for practicing addition, subtraction, multiplication, and division. 
+              The game ends when the timer runs out.
+            </p>
+            {% if user.is_authenticated %}
+              <button class="btn btn-success float-end" id="play2" onclick="location.href='http://127.0.0.1:8000/math-facts/'">Play</button>
+            {% endif %}
+          </div>
         </div>
 
-        <div id="game2" class="game col-md-4">
-          <h3>Mathificent</h3>
-          <p>This is a simple game for practicing addition, subtraction, multiplication, and division. 
-            The game ends when the timer runs out.
-          </p>
-          {% if user.is_authenticated %}
-            <button id="play2" onclick="location.href='http://127.0.0.1:8000/math-facts/'">Play</button>
-          {% endif %}
-        </div>
       </div>
+
     </div>
   </section> <!--end games-->
     <!--Put this script at bottom so the DOM elements are loaded, 

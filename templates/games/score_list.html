@@ -4,9 +4,9 @@
 {% block main %}
   <h2>Math Scores</h2>
   <ul class="list-group list-group-flush mb-3">
-    {% for mscore in mscore_list %}
+    {% for gamescore in gamescore_list %}
       <li class="list-group-item">
-        <a href="{% url 'games:mdetail' mscore.slug %}">{{ mscore.user }}, {{ mscore.score }}, {{mscore.max_number }}, {{mscore.end_time }}</a>
+        <a href="{% url 'games:mdetail' mscore.slug %}">{{ gamescore.user }}, {{ gamescore.score }}, {{gamescore.max_number }}, {{gamescore.end_time }}</a>
       </li>
     {% endfor %}
   </ul>

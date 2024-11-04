@@ -1,12 +1,6 @@
 from django.forms import ModelForm, Textarea
-from .models import Ascore, Mscore
+from .models import GameScore
 
-class AscoreForm(ModelForm):
-    class Meta:
-        model = Ascore
-        fields = ['user', 'score', 'max_number', 'operation' ]
-
-class MscoreForm(ModelForm):
-    class Meta:
-        model = Mscore
-        fields = ['user', 'score', 'max_number', 'operation' ]
+class GameScoreForm(ModelForm):
+    class Meta: GameScore
+    fields = ['game', 'score', 'max_number', 'operation', 'user' ]

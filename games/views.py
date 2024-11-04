@@ -8,8 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, TemplateView, ListView, UpdateView
-from games.models import Ascore, Mscore, GameScore
-from games.forms import AscoreForm, MscoreForm
+from games.models import GameScore
+from games.forms import GameScoreForm
+
 
 #These are the actual games
 class MathFactsView(TemplateView):
@@ -18,13 +19,12 @@ class MathFactsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(MathFactsView, self).get_context_data(**kwargs)
-        context['math_scores'] = GameScore.objects.filter(game__exact='MATH').order_by('-score')[0:3]
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH').order_by('-score')[0:3]   
         return context
 
 class AnagramHuntView(TemplateView):
     model = GameScore
     template_name = 'anagram-hunt.html'
-    ordering = ['-score']
 
     def get_context_data(self, **kwargs):
         context = super(AnagramHuntView, self).get_context_data(**kwargs)
@@ -32,20 +32,20 @@ class AnagramHuntView(TemplateView):
         return context
 
 #These are for the scores    
-class AscoreCreateView(CreateView):
-    model = Ascore
-    form_class = AscoreForm
+class GameScoreCreateView(CreateView):
+    model = GameScore
+    form_class = GameScoreForm
     success_url = reverse_lazy('games:thanks')
   
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class AscoreThanksView(TemplateView):
+class GameScoreThanksView(TemplateView):
     template_name = 'games\thanks.html'
 
-class AscoreDeleteView(DeleteView):
-    model = Ascore
+class GameScoreDeleteView(DeleteView):
+    model = GameScore
     success_url = reverse_lazy('games:thanks')
 
     def delete(self, request, *args, **kwargs):
@@ -55,66 +55,10 @@ class AscoreDeleteView(DeleteView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-    
-    def test_func(self):
-        obj = self.get_object()
-        return self.request.user == obj.user
 
-class MscoreCreateView(CreateView):
-    model = Mscore
-    form_class = MscoreForm
-    success_url = reverse_lazy('games:thanks')
-  
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-class MscoreThanksView(TemplateView):
-    template_name = 'games\thanks.html'
-
-class MscoreDeleteView(DeleteView):
-    model = Mscore
-    success_url = reverse_lazy('games:thanks')
-
-    def delete(self, request, *args, **kwargs):
-        result = super().delete(request, *args, **kwargs)
-        return result
-  
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-    
-    def test_func(self):
-        obj = self.get_object()
-        return self.request.user == obj.user
-
-class AscoreDetailView(DetailView):
-    model = Ascore
-    template_name = 'games/ascore_detail.html'
-
-class MscoreDetailView(DetailView):
-    model = Mscore
-    template_name = 'games/mscore_detail.html'
-
-class AscoreListView(ListView):
-    model = Ascore
-    template_name = "games/ascore_list.html"
-
-class AscoreUpdateView(UpdateView):
-    model = Ascore
-    template_name = "games/ascore_list.html"
-
-    def test_func(self):
-        obj = self.get_object()
-        return self.request.user == obj.user
-
-class MscoreListView(ListView):
-    model = Mscore
-    template_name = "games/mscore_list.html"
-
-class MscoreUpdateView(UpdateView):
-    model = Mscore
-    template_name = "games/mscore_list.html"
+class GameScorecoreUpdateView(UpdateView):
+    model = GameScore
+    template_name = "games/gamescore_list.html"
 
     def test_func(self):
         obj = self.get_object()
@@ -130,15 +74,24 @@ class GameScoresView(TemplateView):
         context['math_scores'] = GameScore.objects.filter(game__exact='MATH').order_by('-score')[0:3]
         return context
 
-class AleaderList2View(ListView):
-    model = Ascore
-    template_name = 'aleader_list2.html'
-    ordering = ['-score']
+class MathScoresView(TemplateView):
+    template_name="games/math-scores.html"
 
-    def get_queryset(self):
-        qs = Ascore.objects.all().order_by('-score')
-        #0=first one and it doesn't include 3
-        return qs[0:3]
+    def get_context_data(self, **kwargs):
+        context = super(MathScoresView, self).get_context_data(**kwargs)
+        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM').order_by('-score')
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH').order_by('-score')
+        return context
+
+class AnagramScoresView(TemplateView):
+    template_name="games/anagram-scores.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(AnagramScoresView, self).get_context_data(**kwargs)
+        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM').order_by('-score')
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH').order_by('-score')
+        return context
+
 
 #My Scores
 class MyScoresView(TemplateView):
@@ -150,6 +103,24 @@ class MyScoresView(TemplateView):
         context['math_scores'] = GameScore.objects.filter(game__exact='MATH', user=self.request.user).order_by('-score')[0:3]
         return context
 
+class MyMscoresAllView(TemplateView):
+    template_name = 'games/mymscores-all.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MyMscoresAllView, self).get_context_data(**kwargs)
+        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM', user=self.request.user).order_by('-score')
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH', user=self.request.user).order_by('-score')
+        return context
+
+class MyAscoresAllView(TemplateView):
+    template_name = 'games/myascores-all.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MyAscoresAllView, self).get_context_data(**kwargs)
+        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM', user=self.request.user).order_by('-score')
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH', user=self.request.user).order_by('-score')
+        return context
+
 def record_score(request):
     data = json.loads(request.body)
 
@@ -157,11 +128,9 @@ def record_score(request):
     score = data["score"]
     max_number = data["max_number"]
     operation = data["operation"]
-    #user_id=request.user.user_id
-    user_id = data["user_id"]
+    user_id = request.user.id
     
     new_score = GameScore(game=game, score=score, max_number=max_number, operation=operation, user_id=user_id)
-    #new_score = GameScore(game=game, score=score, max_number=max_number, operation=operation, user_id=request.user.user_id)
     new_score.save()
 
     response = {

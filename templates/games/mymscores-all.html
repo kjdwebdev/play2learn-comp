@@ -1,10 +1,10 @@
 {% extends "_base_vue.html" %}
 
-{% block title %}My Top Game Scores{% endblock %}
+{% block title %}My Math Facts Scores{% endblock %}
 {% block main %}
 <section class="me-auto" id="page-info">
     <section id="page-header" class="text-center m-4">
-        <h1>My Top Game Scores</h1>
+        <h1>My Math Facts Scores</h1>
     </section>
 
     <div class="card mb-3 mx-auto" style="max-width: 540px;">
@@ -20,16 +20,4 @@
         </div>
     </div>
 
-    <div class="card mb-3 mx-auto" style="max-width: 540px;">
-        <div class="col-md-8">
-            <div class="card-body">
-                <h3 class="card-title">Anagram Hunt</h3>
-                <ol>
-                    {% for score in anagram_scores %}
-                        <li>{{score.score}}:  {{score.user.username}}  {{score.end_time}}</li> 
-                    {% endfor %}
-                </ol>
-            </div>
-        </div>
-    </div>
 {% endblock %}

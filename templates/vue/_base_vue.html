@@ -27,100 +27,119 @@
 
 <body>
   <header>
-    <nav class="navbar navbar-expand-lg">
-      <!--This inserts the logo-->
-      <a class="navbar-brand" href="{% url 'pages:homepage' %}">
-        <img src="{% static 'images/p2l1-237x100.png' %}" alt="Logo" class="img-fluid"/>
-      </a>
-      <!--This makes the company name a clickable link to home page-->
-      <a class="navbar-brand" href="{% url 'pages:homepage' %}">Play2Learn</a>
-      <!--This is for the hamburget menu-->
-      <button class="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#navbar-content" aria-expanded="false"
-        aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!--This is the stuff that gets collapsed in the hamburger menu-->
-      <div class="collapse navbar-collapse" id="navbar-content">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'pages:homepage' %}">Home</a>
-          </li>
-          <li>
-            <a class="nav-link" href="{% url 'pages:about-us' %}">About</a>
-          </li>
+    <section id="site-info"></section>
+      <nav class="navbar navbar-expand-lg">
 
-          <!--If the user is not logged in display login/signup-->
-          {% if not user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'account_login' %}">Log in</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'account_signup' %}">Sign up</a>
-            </li>
-          {% else %}
-
-            <!--this is the games dropdown-->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
-                role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                Games
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="http://127.0.0.1:8000/anagram-hunt/">
-                  Anagram Hunt
-                </a>
-                <a class="dropdown-item"
-                  href="http://127.0.0.1:8000/math-facts/">
-                  Math Facts
-                </a>
-                <a class="dropdown-item"
-                  href="{% url 'games:game-scores' %}">
-                  Leader Board 
-                </a>
-              </div>
-            </li>
-
-            <!--If the user is logged in display their me/account menu-->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
-                role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                Me
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'my-account' %}">
-                  My Account
-                </a>
-                <a class="dropdown-item"
-                  href="{% url 'reviews:create' %}">
-                  Review
-                </a>
-                <a class="dropdown-item"
-                  href="{% url 'reviews:mylist' %}">
-                  My Reviews
-                </a>
-                <a class="dropdown-item"
-                  href="{% url 'games:myscores' %}">
-                  My Scores
-                </a>
-                <div class="dropdown-divider"></div>
-                <form method="post" action="{% url 'account_logout' %}">
-                  {% csrf_token %}
-                  <button class="btn dropdown-item">Log out</button>
-                </form>
-              </div>
-            </li>
-              {% if user.is_staff %}
+          <!--This inserts the logo-->
+          <a class="navbar-brand" href="{% url 'pages:homepage' %}">
+            <img src="{% static 'images/p2l1-237x100.png' %}" alt="Logo" class="img-fluid"/>
+          </a>
+          <!--This makes the company name a clickable link to home page-->
+          <a class="navbar-brand" href="{% url 'pages:homepage' %}">Play2Learn</a>
+          <!--This is for the hamburget menu-->
+          <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbar-content" aria-expanded="false"
+            aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!--This is the stuff that gets collapsed in the hamburger menu-->
+          <div class="collapse navbar-collapse" id="navbar-content">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'pages:homepage' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pages:about-us' %}">About</a>
+              </li>
+              <!--If the user is not logged in display login/signup-->
+              {% if not user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link" href="/admin/">Admin</a>
+                  <a class="nav-link" href="{% url 'account_login' %}">Log in</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'account_signup' %}">Sign up</a>
+                </li>
+              {% else %}
+
+                <!--this is the games dropdown-->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
+                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    Games
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="http://127.0.0.1:8000/anagram-hunt/">
+                      Anagram Hunt
+                    </a>
+                    <a class="dropdown-item"
+                      href="http://127.0.0.1:8000/math-facts/">
+                      Math Facts
+                    </a>
+                    <a class="dropdown-item"
+                      href="{% url 'games:game-scores' %}">
+                      Leader Board (Top 3 Scores)
+                    </a>
+                    <a class="dropdown-item"
+                      href="{% url 'games:math-scores' %}">
+                      All Math Facts Scores 
+                    </a>
+                    <a class="dropdown-item"
+                      href="{% url 'games:anagram-scores' %}">
+                      All Anagram Hunt Scores
+                    </a>
+                  </div>
+                </li>
+
+                <!--If the user is logged in display their me/account menu-->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
+                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    Me
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'my-account' %}">
+                      My Account
+                    </a>
+                    <a class="dropdown-item"
+                      href="{% url 'reviews:create' %}">
+                      Review
+                    </a>
+                    <a class="dropdown-item"
+                      href="{% url 'reviews:mylist' %}">
+                      My Reviews
+                    </a>
+                    <a class="dropdown-item"
+                      href="{% url 'games:myscores' %}">
+                      My Top Scores
+                    </a>
+                    <a class="dropdown-item"
+                      href="{% url 'games:mymscores' %}">
+                      My Math Facts Scores
+                    </a>
+                    <a class="dropdown-item"
+                      href="{% url 'games:myascores' %}">
+                      My Anagram Hunt Scores
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <form method="post" action="{% url 'account_logout' %}">
+                      {% csrf_token %}
+                      <button class="btn dropdown-item">Log out</button>
+                    </form>
+                  </div>
+                </li>
+                  {% if user.is_staff %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="/admin/">Admin</a>
+                    </li>
+                  {% endif %}
               {% endif %}
-          {% endif %}
-        </ul>
-      </div> <!--end hamburger menu-->
-    </nav>
+            </ul>
+          </div> <!--end hamburger menu-->
+
+      </nav>
+    </section>
   </header>
 
   {% block main %}{% endblock %}

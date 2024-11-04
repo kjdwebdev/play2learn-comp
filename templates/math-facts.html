@@ -6,14 +6,9 @@
   <h2>Math Facts High Scores</h2>
   <ol>
     {% for score in math_scores %}
-        <li>{{score.score}}:  {{score.user.username}}  {{score.end_time}}</li>
+      <li>{{score.score}}:  {{score.user.username}}  {{score.end_time}}</li>
     {% endfor %}
   </ol>
   <p>User id:  {{ request.user.id }}</p>
   {{ block.super }}
-  <p>Username:  {{ request.user.username  }}</p>
-  <p>User first_name:  {{ request.user.first_name  }}</p>
-  <p>User last_name:  {{ request.user.last_name  }}</p>
-  <p>This user: this.user</p>
-  {{ user.id }}
 {% endblock %}

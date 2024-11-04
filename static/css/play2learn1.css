@@ -28,7 +28,6 @@ body
     border-color: #C2F8CB;
 }
 /* Setting the stroke to green using rgb values (0, 128, 0) */
-
 .custom-toggler .navbar-toggler-icon
 {
     background-image: url(
@@ -40,10 +39,20 @@ body
     justify-content: right;
 }
 
+h1
+{
+    text-align: center;
+}
+
 .card
 {
     border-style: solid 10px;
     border-color: #5603AD;
     background-color: #C2F8CB;
     color: #5603AD;
+}
+
+.card h2
+{
+    text-size-adjust: 75%;
 }

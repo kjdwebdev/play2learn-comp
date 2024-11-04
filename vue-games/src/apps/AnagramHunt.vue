@@ -1,13 +1,5 @@
 <template>
   <div class="container" style="width: 500px">
-    <div class="container" style="width: 500px">
-      <h2>Winners</h2>
-      <ul>
-        <li>leader #1</li>
-        <li>leader #2</li>
-        <li>leader #3</li>
-      </ul>
-    </div>
     <!-- Start Screen -->
     <div v-if="screen=='start'" class="container">
       <div class="row m-auto">
@@ -134,10 +126,18 @@ export default {
       this.currentWord = this.anagramList[getRandomInteger(0, this.anagramList.length)];
       this.correctGuesses = [];
     },
-    async recordScore() {
-      // TODO: when Anagram Hunt finishes, make an Ajax call with axios (this.axios)
-      // to record the score on the backend
+    async recordScore(){
+        const data = {
+          "game": "ANAGRAM",
+          "score": this.score,
+          "max_number": this.wordLength,
+          "operation": "anagramhunt",
+          "user_id": 0
+        };
 
+        console.log(data);
+        const response = (await this.axios.post("/record-score/", data)).data;
+        console.log(response)
     }
   },
   watch: {
