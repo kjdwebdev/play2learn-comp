@@ -7,31 +7,53 @@
         <h1>Top Game Scores</h1>
     </section>
 
-    <div class="card mb-3 mx-auto" style="max-width: 540px;">
-        <div class="col-md-8">
-            <div class="card-body">
-                <h3 class="card-title">Math Facts Leaders</h3>
-                <ol>
-                    {% for score in math_scores %}
-                        <li>{{score.score}}:  {{score.user.username}}  {{score.end_time}}</li>
-                    {% endfor %}
-                </ol>
-            </div>
-        </div>
-    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>Math Facts Scores</tr>
+            <tr>
+              <th scope="col">Score</th>
+              <th scope="col">User name</th>
+              <th scope="col">Game end time (UTC)</th>
+              <th scope="col">Max Number</th>
+              <th scope="col">Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in math_scores %}
+            <tr>
+                <td>{{score.score}}</td>   
+                <td>{{score.user.username}}</td>
+                <td>{{score.end_time}}</td>
+                <td>{{score.max_number }}</td>
+                <td>{{ score.operation }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-    <div class="card mb-3 mx-auto" style="max-width: 540px;">
-        <div class="col-md-8">
-            <div class="card-body">
-                <h3 class="card-title">Anagram Hunt Leaders</h3>
-                <ol>
-                    {% for score in anagram_scores %}
-                        <li>{{score.score}}:  {{score.user.username}}  {{score.end_time}}</li> 
-                    {% endfor %}
-                </ol>
-            </div>
-        </div>
-    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>Anagram Hunt Scores</tr>
+            <tr>
+              <th scope="col">Score</th>
+              <th scope="col">User name</th>
+              <th scope="col">Game end time (UTC)</th>
+              <th scope="col">Max Number</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in anagram_scores %}
+            <tr>
+                <td>{{score.score}}</td>   
+                <td>{{score.user.username}}</td>
+                <td>{{score.end_time}}</td>
+                <td>{{score.max_number }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </section>
 
 {% endblock %}

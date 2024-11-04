@@ -108,8 +108,8 @@ class MyMscoresAllView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(MyMscoresAllView, self).get_context_data(**kwargs)
-        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM', user=self.request.user).order_by('-score')
-        context['math_scores'] = GameScore.objects.filter(game__exact='MATH', user=self.request.user).order_by('-score')
+        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM', user=self.request.user).order_by('-end_time')
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH', user=self.request.user).order_by('-end_time')
         return context
 
 class MyAscoresAllView(TemplateView):
@@ -117,8 +117,8 @@ class MyAscoresAllView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(MyAscoresAllView, self).get_context_data(**kwargs)
-        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM', user=self.request.user).order_by('-score')
-        context['math_scores'] = GameScore.objects.filter(game__exact='MATH', user=self.request.user).order_by('-score')
+        context['anagram_scores'] = GameScore.objects.filter(game__exact='ANAGRAM', user=self.request.user).order_by('-end_time')
+        context['math_scores'] = GameScore.objects.filter(game__exact='MATH', user=self.request.user).order_by('-end_time')
         return context
 
 def record_score(request):
